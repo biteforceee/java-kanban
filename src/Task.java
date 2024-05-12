@@ -2,9 +2,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Task {
-    private final int id;
-    private final String title;
-    private final String note;
+    private int id;
+
+    private String title;
+
+    private String note;
+
     private Status status;
 
     public Task(String name, String note) {
@@ -31,7 +34,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && Objects.equals(title, task.title) && Objects.equals(note, task.note) && status == task.status;
+        return id == task.id;
     }
     public String getTitle() {
         return title;
@@ -56,5 +59,17 @@ public class Task {
                 ", note='" + note + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

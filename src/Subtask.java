@@ -1,6 +1,6 @@
 public class Subtask extends Task{
-    private int epicID=-1;
-    Subtask(String tasktitle,String subnote){
+    private int epicID=0;
+    Subtask(String tasktitle,String subnote) {
         super(tasktitle, subnote);
     }
 
@@ -11,6 +11,7 @@ public class Subtask extends Task{
     public int getEpicID() {
         return epicID;
     }
+
     @Override
     public String toString() {
         return "Subtask{" +
