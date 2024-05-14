@@ -39,7 +39,7 @@ public class TaskManager {
         }
     }
 
-    public Integer addSubtask(Subtask subtask, Epic epc) { // или передавать вместо ru.yandex.javacource.lagutov.schedule.task.Epic epc, int epicId, но так понятней
+    public Integer addSubtask(Subtask subtask, Epic epc) { // или передавать вместо Epic epc, int epicId
         int epicId = epc.getId();
         Epic epic = epics.get(epicId);
         if (epic == null) {
