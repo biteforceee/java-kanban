@@ -18,7 +18,7 @@ public class Main {
         System.out.println(taskManager.getTasks());
         taskManager.deleteTasks();
         System.out.println(taskManager.getTasks());
-
+        ///////////
         Epic epic1 =new Epic("title1","note1");
         taskManager.addEpic(epic1);
         Subtask aa =new Subtask("subTitle1","subNote1");
