@@ -1,6 +1,8 @@
-public class Subtask extends Task{
-    private int epicID=0;
-    Subtask(String tasktitle,String subnote) {
+package ru.yandex.javacource.lagutov.schedule.task;
+
+public class Subtask extends Task {
+    private int epicID;
+    public Subtask(String tasktitle,String subnote) {
         super(tasktitle, subnote);
     }
 
@@ -14,7 +16,7 @@ public class Subtask extends Task{
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "ru.yandex.javacource.lagutov.schedule.task.Subtask{" +
                 "id=" + getId() +
                 ", name='" + getTitle() + '\'' +
                 ", epicID='" + epicID +'\'' +

@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Objects;
+package ru.yandex.javacource.lagutov.schedule.task;
 
 public class Task {
     private int id;
@@ -53,7 +52,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "Task{" +
+        return "ru.yandex.javacource.lagutov.schedule.task.Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +

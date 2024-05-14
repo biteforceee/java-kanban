@@ -1,4 +1,10 @@
-//package ru.yandex.javacource.Pavel Lagutov.schedule;
+package ru.yandex.javacource.lagutov.schedule;
+import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
+import ru.yandex.javacource.lagutov.schedule.task.Epic;
+import ru.yandex.javacource.lagutov.schedule.task.Subtask;
+import ru.yandex.javacource.lagutov.schedule.task.Task;
+import ru.yandex.javacource.lagutov.schedule.task.Status;
+
 public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
@@ -16,37 +22,38 @@ public class Main {
         Epic epic1 =new Epic("title1","note1");
         taskManager.addEpic(epic1);
         Subtask aa =new Subtask("subTitle1","subNote1");
-        epic1.addSubtask(aa);
+        taskManager.addSubtask(aa,epic1);
         Subtask bb =new Subtask("subTitle2","subNote2");
-        epic1.addSubtask(bb);
+        taskManager.addSubtask(bb,epic1);
         aa.setStatus(Status.DONE);
         taskManager.updateSubtask(aa);
+        taskManager.updateEpic(epic1);
         System.out.println("//////////////////////");
         for(Epic epic :taskManager.getEpics()){
             System.out.println(epic.toString());
-            System.out.println(epic.getSubtasks());
+            System.out.println(epic.getSubtasksIds());
         }
         Epic epic2 =new Epic("title2","note2");
         taskManager.addEpic(epic2);
         Subtask cc = new Subtask("subTitle3","subNote3");
-        epic2.addSubtask(cc);
+        taskManager.addSubtask(cc,epic2);
         System.out.println("//////////////////////");
         for(Epic epic :taskManager.getEpics()){
             System.out.println(epic.toString());
-            System.out.println(epic.getSubtasks());
+            System.out.println(epic.getSubtasksIds());
         }
         //taskManager.deleteEpic(3);
         taskManager.deleteEpic(epic2);
         System.out.println("//////////////////////");
         for(Epic epic :taskManager.getEpics()){
             System.out.println(epic.toString());
-            System.out.println(epic.getSubtasks());
+            System.out.println(epic.getSubtasksIds());
         }
         taskManager.deleteEpics();
         System.out.println("//////////////////////");
         for(Epic epic :taskManager.getEpics()){
             System.out.println(epic.toString());
-            System.out.println(epic.getSubtasks());
+            System.out.println(epic.getSubtasksIds());
         }
     }
 }
