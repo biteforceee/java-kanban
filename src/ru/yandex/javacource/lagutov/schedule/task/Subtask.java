@@ -2,7 +2,8 @@ package ru.yandex.javacource.lagutov.schedule.task;
 
 public class Subtask extends Task {
     private int epicID;
-    public Subtask(String tasktitle,String subnote) {
+
+    public Subtask(String tasktitle, String subnote) {
         super(tasktitle, subnote);
     }
 

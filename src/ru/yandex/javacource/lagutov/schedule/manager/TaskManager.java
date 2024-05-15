@@ -1,5 +1,4 @@
-package ru.yandex.javacource.lagutov.schedule.manager;//package ru.yandex.javacource.твояфамилия.schedule.manager;
-
+package ru.yandex.javacource.lagutov.schedule.manager;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
 import ru.yandex.javacource.lagutov.schedule.task.Status;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
@@ -26,17 +25,11 @@ public class TaskManager {
     }
 
     public Integer addEpic(Epic epic) {
-        if (epics.containsValue(epic)) {
-            System.out.println("Такой эпик уже существует!");
-            return -1;
-        }
-        else {
             int id = ++generatorId;
             epic.setId(id);
             epics.put(epic.getId(), epic);
             updateEpicStatus(epic.getId());
             return id;
-        }
     }
 
     public Integer addSubtask(Subtask subtask, Epic epc) { // или передавать вместо Epic epc, int epicId
@@ -53,6 +46,7 @@ public class TaskManager {
         updateEpicStatus(epic.getId());
         return id;
     }
+
     public Task getTask(int id) {
         return tasks.get(id);
     }
@@ -156,14 +150,12 @@ public class TaskManager {
     public void updateEpicStatus(int epicId) {
         if (epics.get(epicId).getSubtasksIds().isEmpty()) {
             epics.get(epicId).setStatus(Status.NEW);
-        }
-        else {
+        } else {
             int countDone=0;
                 for(int subId: epics.get(epicId).getSubtasksIds()){
                     if(subtasks.get(subId).getStatus().equals(Status.DONE)) {
                         countDone++;
-                    }
-                    else if (subtasks.get(subId).getStatus().equals(Status.IN_PROGRESS)) {
+                    } else if (subtasks.get(subId).getStatus().equals(Status.IN_PROGRESS)) {
                         epics.get(epicId).setStatus(Status.IN_PROGRESS);
                         return;
                     }

@@ -8,8 +8,8 @@ import ru.yandex.javacource.lagutov.schedule.task.Status;
 public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        Task a=new Task("title1","note1");
-        Task b=new Task("title2","note2");
+        Task a = new Task("title1","note1");
+        Task b = new Task("title2","note2");
         taskManager.addTask(a);
         a.setStatus(Status.DONE);
         taskManager.addTask(b);
@@ -19,11 +19,11 @@ public class Main {
         taskManager.deleteTasks();
         System.out.println(taskManager.getTasks());
         ///////////
-        Epic epic1 =new Epic("title1","note1");
+        Epic epic1 = new Epic("title1","note1");
         taskManager.addEpic(epic1);
-        Subtask aa =new Subtask("subTitle1","subNote1");
+        Subtask aa = new Subtask("subTitle1","subNote1");
         taskManager.addSubtask(aa,epic1);
-        Subtask bb =new Subtask("subTitle2","subNote2");
+        Subtask bb = new Subtask("subTitle2","subNote2");
         taskManager.addSubtask(bb,epic1);
         aa.setStatus(Status.DONE);
         taskManager.updateSubtask(aa);
