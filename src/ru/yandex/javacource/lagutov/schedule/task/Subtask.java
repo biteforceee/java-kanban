@@ -17,7 +17,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "ru.yandex.javacource.lagutov.schedule.task.Subtask{" +
+        return "Subtask{" +
                 "id=" + getId() +
                 ", name='" + getTitle() + '\'' +
                 ", epicID='" + epicID +'\'' +

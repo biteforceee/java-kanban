@@ -13,7 +13,7 @@ public class Epic extends Task {
     public void addSubtaskId(int id) {
         subtaskIds.add(id);
     }
-    public void removeSubtaskIds(int id){
+    public void removeSubtaskIds(Integer id){
         subtaskIds.remove(id);
     }
     public void deleteSubtasks(){
@@ -30,7 +30,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "ru.yandex.javacource.lagutov.schedule.task.Epic{" +
+        return "Epic{" +
                 "id=" + getId() +
                 ", title='" + getTitle() + '\'' +
                 ", note='" + getNote() + '\'' +

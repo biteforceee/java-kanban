@@ -52,7 +52,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "ru.yandex.javacource.lagutov.schedule.task.Task{" +
+        return "Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +
