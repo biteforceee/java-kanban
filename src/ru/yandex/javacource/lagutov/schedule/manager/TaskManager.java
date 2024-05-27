@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Queue;
 
 public interface TaskManager {
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
+
     int addTask(Task task);
+
     Integer addEpic(Epic epic);
+
     Integer addSubtask(Subtask subtask, int epicId);
 
     Task getTask(int id);
@@ -21,13 +24,13 @@ public interface TaskManager {
 
     Subtask getSubtask(int id);
 
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
-    ArrayList<Subtask> getSubtasks();
+    List<Subtask> getSubtasks();
 
-    ArrayList<Integer> getEpicSubtasks(Epic epic);
+    List<Integer> getEpicSubtasks(Epic epic);
 
     void deleteTasks();
 
