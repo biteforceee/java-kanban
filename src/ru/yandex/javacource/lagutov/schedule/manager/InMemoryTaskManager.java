@@ -6,7 +6,7 @@ import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 import java.util.*;
 
-public class InMemoryTaskManager implements TaskManager {
+    public class InMemoryTaskManager implements TaskManager {
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int generatorId = 0;

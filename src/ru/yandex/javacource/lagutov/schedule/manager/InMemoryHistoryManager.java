@@ -5,7 +5,7 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final static int MAX_COUNT=10;
-    private List<Task> qHistory = new ArrayList<>();
+    private final List<Task> qHistory = new ArrayList<>();
 
 
     @Override
