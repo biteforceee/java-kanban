@@ -178,7 +178,7 @@ import java.util.*;
         } else {
             int countDone=0;
                 for(int subId: epics.get(epicId).getSubtasksIds()){
-                    if(subtasks.get(subId).getStatus().equals(Status.DONE)) {
+                    if (subtasks.get(subId).getStatus().equals(Status.DONE)) {
                         countDone++;
                     } else if (subtasks.get(subId).getStatus().equals(Status.IN_PROGRESS)) {
                         epics.get(epicId).setStatus(Status.IN_PROGRESS);

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final myLinkedList list= new myLinkedList();
+    private final MyLinkedList list = new MyLinkedList();
 
     @Override
     public void add(Task task) {
@@ -22,7 +22,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         list.removeNode(list.getNode(id));
     }
 
-    private class myLinkedList {
+    private class MyLinkedList {
 
         private Map<Integer,Node> table = new HashMap<>();
 
@@ -33,10 +33,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         public void linkLast(Task task) {
             Node node = new Node(task);
 
-            if(table.containsKey(task.getId())) {
+            if (table.containsKey(task.getId())) {
                 removeNode(node);
             }
-            if(head == null) {
+            if (head == null) {
                 head = node;
                 tail = node;
                 node.setNext(null);
@@ -52,21 +52,21 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         private void removeNode(Node node) {
-            if(node != null) {
+            if (node != null) {
                 Node tmp = table.get(node.getData().getId());
                 table.remove(node.getData().getId());
                 Node prev = tmp.getPrev();
                 Node next = tmp.getNext();
-                if(head == tmp){
+                if (head == tmp) {
                     head = tmp.getNext();
                 }
-                if(tail == tmp) {
+                if (tail == tmp) {
                     tail = tmp.getPrev();
                 }
-                if(next != null) {
+                if (next != null) {
                     next.setPrev(prev);
                 }
-                if(prev != null) {
+                if (prev != null) {
                     prev.setNext(next);
                 }
             }

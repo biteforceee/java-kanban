@@ -4,7 +4,9 @@ import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 public class Node {
     public Task data;
+
     public Node next;
+
     public Node prev;
 
     public Node(Task data) {
@@ -23,7 +25,7 @@ public class Node {
         return prev;
     }
 
-    public void setData(Task data) {this.data = data;}
+    public void setData(Task data) { this.data = data; }
 
     public void setNext(Node next) {
         this.next = next;
