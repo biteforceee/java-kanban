@@ -7,7 +7,7 @@ public class Subtask extends Task {
         super(tasktitle, subnote);
     }
 
-    public Subtask(String tasktitle, String subnote,Epic epic) {
+    public Subtask(String tasktitle, String subnote, Epic epic) {
         super(tasktitle, subnote);
         setEpicID(epic.getId());
     }
@@ -25,7 +25,7 @@ public class Subtask extends Task {
         return "Subtask{" +
                 "id=" + getId() +
                 ", name='" + getTitle() + '\'' +
-                ", epicID='" + epicID +'\'' +
+                ", epicID='" + epicID + '\'' +
                 ", description='" + getNote() + '\'' +
                 ", status=" + getStatus() +
                 '}';
