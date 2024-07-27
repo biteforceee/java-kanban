@@ -11,10 +11,11 @@ import java.util.List;
 
 
 class InMemoryHistoryManagerTest {
-    HistoryManager historyManager = Managers.getDefaultHistory();
+    HistoryManager historyManager= Managers.getDefaultHistory();
+
     @Test
     void add() {
-        Task task = new Task("name1","note");
+        Task task = new Task("name","note");
         historyManager.add(task);
         historyManager.add(task);
         Assertions.assertEquals(1,historyManager.getHistory().size());

@@ -1,9 +1,7 @@
-package ru.yandex.javacource.lagutov.schedule.test;
+package ru.yandex.javacource.lagutov.schedule.manager;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.lagutov.schedule.manager.Managers;
-import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
