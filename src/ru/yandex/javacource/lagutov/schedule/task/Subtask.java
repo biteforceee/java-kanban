@@ -6,6 +6,10 @@ public class Subtask extends Task {
     public Subtask(String tasktitle, String subnote) {
         super(tasktitle, subnote);
     }
+    public Subtask(String tasktitle, String subnote,Epic epic) {
+        super(tasktitle, subnote);
+        setEpicID(epic.getId());
+    }
 
     public void setEpicID(int epicID) {
         this.epicID = epicID;

@@ -40,7 +40,7 @@ import java.util.*;
     }
 
     @Override
-    public Integer addSubtask(Subtask subtask, int epicId) { // или передавать вместо Epic epc, int epicId
+    public Integer addSubtask(Subtask subtask, int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return null;
@@ -108,7 +108,7 @@ import java.util.*;
 
     @Override
     public void deleteTask(int id) {
-        historyManager.remove(tasks.get(id));
+        historyManager.remove(id);
         tasks.remove(id);
     }
 
@@ -118,16 +118,9 @@ import java.util.*;
         if (epic == null) {
             return;
         }
-        historyManager.remove(epics.get(id));
+        historyManager.remove(id);
         for (Integer subtaskId : epic.getSubtasksIds()) {
             subtasks.remove(subtaskId);
-        }
-    }
-
-    @Override
-    public void deleteEpic(Epic epic) {
-        if(epics.containsValue(epic)){
-            epics.remove(epic.getId());
         }
     }
 
@@ -137,7 +130,7 @@ import java.util.*;
         if (subtask == null) {
             return;
         }
-        historyManager.remove(subtasks.get(id));
+        historyManager.remove(id);
         Epic epic = epics.get(subtask.getEpicID());
         epic.removeSubtaskIds(id);
         updateEpicStatus(epic.getId());

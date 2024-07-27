@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.lagutov.schedule.manager.Managers;
 import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
+import ru.yandex.javacource.lagutov.schedule.task.Status;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
 
@@ -16,19 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryTaskManagerTest {
     TaskManager taskManager = Managers.getDefault();
 
-    /*Task task = new Task("Test addNewTask", "Test addNewTask description", NEW);
-        final int taskId = taskManager.addNewTask(task);
-
-        final Task savedTask = taskManager.getTask(taskId);
-
-        assertNotNull(savedTask, "Задача не найдена.");
-        assertEquals(task, savedTask, "Задачи не совпадают.");
-
-        final List<Task> tasks = taskManager.getTasks();
-
-        assertNotNull(tasks, "Задачи не возвращаются.");
-        assertEquals(1, tasks.size(), "Неверное количество задач.");
-        assertEquals(task, tasks.get(0), "Задачи не совпадают.");*/
     @Test
     void addTask() {
         Task task= new Task("","");
@@ -45,8 +33,11 @@ class InMemoryTaskManagerTest {
 
     @Test
     void addSubtask() {
-        Subtask subtask= new Subtask("","");
-        taskManager.addSubtask(subtask,0);
+        Subtask subtask = new Subtask("","");
+        Epic epic = new Epic("","");
+        taskManager.addEpic(epic);
+        subtask.setEpicID(epic.getId());
+        taskManager.addSubtask(subtask, subtask.getEpicID());
         Assertions.assertEquals(1,taskManager.getSubtasks().size());
     }
 
@@ -70,8 +61,10 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getSubtask() {
+        Epic epic = new Epic("","");
+        taskManager.addEpic(epic);
         Subtask actual_task= new Subtask("","");
-        taskManager.addSubtask(actual_task,-1);
+        taskManager.addSubtask(actual_task,epic.getId());
         int id = actual_task.getId();
         Subtask expected_task = actual_task;
         Assertions.assertEquals(expected_task,taskManager.getSubtask(id));
@@ -97,8 +90,10 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getSubtasks() {
+        Epic epic = new Epic("","");
+        taskManager.addEpic(epic);
         Subtask actual_task= new Subtask("","");
-        taskManager.addSubtask(actual_task,-1);
+        taskManager.addSubtask(actual_task,epic.getId());
         ArrayList<Subtask> expected_task = new ArrayList<>();
         expected_task.add(actual_task);
         Assertions.assertEquals(expected_task,taskManager.getSubtasks());
@@ -138,9 +133,46 @@ class InMemoryTaskManagerTest {
         Epic epic2= new Epic("","");
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
-        taskManager.deleteEpic(epic2);
+        taskManager.deleteEpic(epic2.getId());
         ArrayList<Epic> arrl= new ArrayList<>();
         arrl.add(epic1);
         Assertions.assertEquals(arrl,taskManager.getEpics());
+    }
+
+    @Test
+    void getEpicSubtasks() {
+        List<Integer> list =new ArrayList<>();
+        Epic epic=new Epic("title","note");
+        taskManager.addEpic(epic);
+
+        Subtask subtask1= new Subtask("","");
+        Subtask subtask2= new Subtask("","");
+        Subtask subtask3= new Subtask("","");
+
+        list.add(subtask1.getId());
+        epic.addSubtaskId(subtask1.getId());
+
+        list.add(subtask2.getId());
+        epic.addSubtaskId(subtask2.getId());
+
+        list.add(subtask3.getId());
+        epic.addSubtaskId(subtask3.getId());
+
+        epic.removeSubtaskIds(subtask2.getId());
+        list.remove(1);
+
+        Assertions.assertEquals(list,taskManager.getEpicSubtasks(epic));
+    }
+
+    @Test
+    void deleteSubtask(){
+        Epic epic=new Epic("title","note");
+        taskManager.addEpic(epic);
+
+        Subtask subtask= new Subtask("","");
+        taskManager.addSubtask(subtask, epic.getId());
+        taskManager.deleteSubtask(subtask.getId());
+
+        Assertions.assertEquals(0,taskManager.getEpicSubtasks(epic).size());
     }
 }
