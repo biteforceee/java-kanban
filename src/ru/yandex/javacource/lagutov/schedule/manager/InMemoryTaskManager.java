@@ -11,7 +11,7 @@ import java.util.*;
 
     private int generatorId = 0;
 
-    private final Map<Integer, Task> tasks =new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
 
     private final Map<Integer, Epic> epics = new HashMap<>();
 
