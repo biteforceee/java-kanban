@@ -5,28 +5,25 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.lagutov.schedule.manager.Managers;
 import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
-import ru.yandex.javacource.lagutov.schedule.task.Status;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InMemoryTaskManagerTest {
     TaskManager taskManager = Managers.getDefault();
 
     @Test
     void addTask() {
-        Task task= new Task("","");
+        Task task = new Task("","");
         taskManager.addTask(task);
         Assertions.assertEquals(1,taskManager.getTasks().size());
     }
 
     @Test
     void addEpic() {
-        Epic epic= new Epic("","");
+        Epic epic = new Epic("","");
         taskManager.addEpic(epic);
         Assertions.assertEquals(1,taskManager.getEpics().size());
     }
@@ -43,7 +40,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getTask() {
-        Task actual_task= new Task("","");
+        Task actual_task = new Task("","");
         taskManager.addTask(actual_task);
         int id = actual_task.getId();
         Task expected_task = actual_task;
@@ -52,7 +49,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getEpic() {
-        Epic actual_task= new Epic("","");
+        Epic actual_task = new Epic("","");
         taskManager.addEpic(actual_task);
         int id = actual_task.getId();
         Epic expected_task = actual_task;
@@ -63,7 +60,7 @@ class InMemoryTaskManagerTest {
     void getSubtask() {
         Epic epic = new Epic("","");
         taskManager.addEpic(epic);
-        Subtask actual_task= new Subtask("","");
+        Subtask actual_task = new Subtask("","");
         taskManager.addSubtask(actual_task,epic.getId());
         int id = actual_task.getId();
         Subtask expected_task = actual_task;
@@ -72,7 +69,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getTasks() {
-        Task actual_task= new Task("","");
+        Task actual_task = new Task("","");
         taskManager.addTask(actual_task);
         ArrayList<Task> expected_task = new ArrayList<>();
         expected_task.add(actual_task);
@@ -81,7 +78,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getEpics() {
-        Epic actual_task= new Epic("","");
+        Epic actual_task = new Epic("","");
         taskManager.addEpic(actual_task);
         ArrayList<Epic> expected_task = new ArrayList<>();
         expected_task.add(actual_task);
@@ -92,7 +89,7 @@ class InMemoryTaskManagerTest {
     void getSubtasks() {
         Epic epic = new Epic("","");
         taskManager.addEpic(epic);
-        Subtask actual_task= new Subtask("","");
+        Subtask actual_task = new Subtask("","");
         taskManager.addSubtask(actual_task,epic.getId());
         ArrayList<Subtask> expected_task = new ArrayList<>();
         expected_task.add(actual_task);
@@ -109,7 +106,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void deleteEpics() {
-        Epic actual_task= new Epic("","");
+        Epic actual_task = new Epic("","");
         taskManager.addTask(actual_task);
         taskManager.deleteEpics();
         Assertions.assertEquals(0,taskManager.getEpics().size());
@@ -117,37 +114,37 @@ class InMemoryTaskManagerTest {
 
     @Test
     void deleteTask() {
-        Task task1= new Epic("","");
-        Task task2= new Epic("","");
+        Task task1 = new Epic("","");
+        Task task2 = new Epic("","");
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.deleteTask(task2.getId());
-        ArrayList<Task> arrl= new ArrayList<>();
+        ArrayList<Task> arrl = new ArrayList<>();
         arrl.add(task1);
         Assertions.assertEquals(arrl,taskManager.getTasks());
     }
 
     @Test
     void deleteEpic() {
-        Epic epic1= new Epic("","");
-        Epic epic2= new Epic("","");
+        Epic epic1 = new Epic("","");
+        Epic epic2 = new Epic("","");
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
         taskManager.deleteEpic(epic2.getId());
-        ArrayList<Epic> arrl= new ArrayList<>();
+        ArrayList<Epic> arrl = new ArrayList<>();
         arrl.add(epic1);
         Assertions.assertEquals(arrl,taskManager.getEpics());
     }
 
     @Test
     void getEpicSubtasks() {
-        List<Integer> list =new ArrayList<>();
-        Epic epic=new Epic("title","note");
+        List<Integer> list = new ArrayList<>();
+        Epic epic = new Epic("title","note");
         taskManager.addEpic(epic);
 
-        Subtask subtask1= new Subtask("","");
-        Subtask subtask2= new Subtask("","");
-        Subtask subtask3= new Subtask("","");
+        Subtask subtask1 = new Subtask("","");
+        Subtask subtask2 = new Subtask("","");
+        Subtask subtask3 = new Subtask("","");
 
         list.add(subtask1.getId());
         epic.addSubtaskId(subtask1.getId());
@@ -165,11 +162,11 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void deleteSubtask(){
-        Epic epic=new Epic("title","note");
+    void deleteSubtask() {
+        Epic epic = new Epic("title","note");
         taskManager.addEpic(epic);
 
-        Subtask subtask= new Subtask("","");
+        Subtask subtask = new Subtask("","");
         taskManager.addSubtask(subtask, epic.getId());
         taskManager.deleteSubtask(subtask.getId());
 

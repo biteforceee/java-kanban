@@ -3,17 +3,15 @@ package ru.yandex.javacource.lagutov.schedule.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.lagutov.schedule.manager.HistoryManager;
-import ru.yandex.javacource.lagutov.schedule.manager.InMemoryHistoryManager;
 import ru.yandex.javacource.lagutov.schedule.manager.Managers;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
-    HistoryManager historyManager= Managers.getDefaultHistory();
+    HistoryManager historyManager = Managers.getDefaultHistory();
     @Test
     void add() {
         Task task = new Task("name1","note");
@@ -31,7 +29,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void getHistory(){
+    void getHistory() {
         List<Task> list = new ArrayList<>();
         Task task1 = new Task("name1","note");
         Task task2 = new Task("name2","note");
