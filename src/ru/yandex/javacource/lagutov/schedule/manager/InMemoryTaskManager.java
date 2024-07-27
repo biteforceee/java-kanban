@@ -70,7 +70,7 @@ import java.util.*;
 
     @Override
     public Subtask getSubtask(int id) {
-        Subtask sub=subtasks.get(id);
+        Subtask sub = subtasks.get(id);
         historyManager.add(sub);
         return sub;
     }
@@ -176,8 +176,8 @@ import java.util.*;
         if (epics.get(epicId).getSubtasksIds().isEmpty()) {
             epics.get(epicId).setStatus(Status.NEW);
         } else {
-            int countDone=0;
-                for(int subId: epics.get(epicId).getSubtasksIds()){
+            int countDone = 0;
+                for (int subId: epics.get(epicId).getSubtasksIds()) {
                     if (subtasks.get(subId).getStatus().equals(Status.DONE)) {
                         countDone++;
                     } else if (subtasks.get(subId).getStatus().equals(Status.IN_PROGRESS)) {
