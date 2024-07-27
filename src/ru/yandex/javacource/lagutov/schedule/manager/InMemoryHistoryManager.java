@@ -4,6 +4,7 @@ import ru.yandex.javacource.lagutov.schedule.task.Task;
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
+
     private final myLinkedList list= new myLinkedList();
 
     @Override
@@ -17,12 +18,18 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(int id) { list.removeNode(list.getNode(id));}
+    public void remove(int id) {
+        list.removeNode(list.getNode(id));
+    }
 
     private class myLinkedList {
+
         private Map<Integer,Node> table=new HashMap<>();
+
         private Node head;
+
         private Node tail;
+
         public void linkLast(Task task){
             Node node = new Node(task);
 
@@ -43,6 +50,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
             table.put(task.getId(),node);
         }
+
         private void removeNode(Node node){
             if(node!=null){
                 Node tmp=table.get(node.getData().getId());
@@ -63,10 +71,12 @@ public class InMemoryHistoryManager implements HistoryManager {
                 }
             }
         }
-        private Node getNode(int id){
+
+        private Node getNode(int id) {
             return table.get(id);
         }
-        private List<Task> getTasks(){
+
+        private List<Task> getTasks() {
             List<Task> list =new ArrayList<>();
             Node h=head;
             while (h!=null){
