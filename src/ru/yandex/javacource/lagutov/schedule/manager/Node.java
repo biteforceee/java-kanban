@@ -15,6 +15,12 @@ public class Node {
         this.prev = null;
     }
 
+    public Node(Task data, Node prev, Node next) {
+        this.data = data;
+        this.prev = prev;
+        this.next = next;
+    }
+
     public Task getData() {
         return data;
     }

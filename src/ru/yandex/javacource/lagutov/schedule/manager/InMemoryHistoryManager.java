@@ -5,10 +5,14 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final MyLinkedList list = new MyLinkedList();
+    private final CustomLinkedList list = new CustomLinkedList();
 
     @Override
     public void add(Task task) {
+        if (task == null) {
+            return;
+        }
+        remove(task.getId());
         list.linkLast(task);
     }
 
@@ -19,10 +23,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        list.removeNode(list.getNode(id));
+        Node removedNode = list.table.remove(id);
+        if (removedNode == null) {
+            return;
+        }
+        list.removeNode(removedNode);
     }
 
-    private class MyLinkedList {
+    private class CustomLinkedList {
 
         private Map<Integer,Node> table = new HashMap<>();
 
@@ -31,36 +39,25 @@ public class InMemoryHistoryManager implements HistoryManager {
         private Node tail;
 
         public void linkLast(Task task) {
-            Node node = new Node(task);
-
-            if (table.containsKey(task.getId())) {
-                removeNode(node);
-            }
+            Node node = new Node(task, tail, null);
             if (head == null) {
                 head = node;
-                tail = node;
-                node.setNext(null);
-                node.setPrev(null);
             } else {
-                node.setPrev(tail);
-                node.setNext(null);
                 tail.setNext(node);
-                tail = node;
             }
+            tail = node;
             table.put(task.getId(),node);
         }
 
         private void removeNode(Node node) {
             if (node != null) {
-                Node tmp = table.get(node.getData().getId());
-                table.remove(node.getData().getId());
-                Node prev = tmp.getPrev();
-                Node next = tmp.getNext();
-                if (head == tmp) {
-                    head = tmp.getNext();
+                Node prev = node.getPrev();
+                Node next = node.getNext();
+                if (head == node) {
+                    head = node.getNext();
                 }
-                if (tail == tmp) {
-                    tail = tmp.getPrev();
+                if (tail == node) {
+                    tail = node.getPrev();
                 }
                 if (next != null) {
                     next.setPrev(prev);
@@ -71,16 +68,12 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
         }
 
-        private Node getNode(int id) {
-            return table.get(id);
-        }
-
         private List<Task> getTasks() {
             List<Task> list = new ArrayList<>();
-            Node h = head;
-            while (h != null) {
-                list.add(h.getData());
-                h = h.getNext();
+            Node headCopy = head;
+            while (headCopy != null) {
+                list.add(headCopy.getData());
+                headCopy = headCopy.getNext();
             }
             return list;
         }
