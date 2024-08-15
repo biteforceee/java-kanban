@@ -1,6 +1,6 @@
 package ru.yandex.javacource.lagutov.schedule.task;
 
-public enum Status{
+public enum Status {
     NEW,
     IN_PROGRESS,
     DONE

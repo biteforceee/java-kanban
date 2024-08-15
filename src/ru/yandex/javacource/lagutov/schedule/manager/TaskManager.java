@@ -1,13 +1,10 @@
 package ru.yandex.javacource.lagutov.schedule.manager;
 
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
-import ru.yandex.javacource.lagutov.schedule.task.Status;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public interface TaskManager {
     List<Task> getHistory();
@@ -39,8 +36,6 @@ public interface TaskManager {
     void deleteTask(int id);
 
     void deleteEpic(int id);
-
-    void deleteEpic(Epic epic);
 
     void deleteSubtask(int id);
 

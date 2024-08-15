@@ -11,7 +11,7 @@ import java.util.*;
 
     private int generatorId = 0;
 
-    private final Map<Integer, Task> tasks =new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
 
     private final Map<Integer, Epic> epics = new HashMap<>();
 
@@ -40,7 +40,7 @@ import java.util.*;
     }
 
     @Override
-    public Integer addSubtask(Subtask subtask, int epicId) { // или передавать вместо Epic epc, int epicId
+    public Integer addSubtask(Subtask subtask, int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return null;
@@ -70,7 +70,7 @@ import java.util.*;
 
     @Override
     public Subtask getSubtask(int id) {
-        Subtask sub=subtasks.get(id);
+        Subtask sub = subtasks.get(id);
         historyManager.add(sub);
         return sub;
     }
@@ -108,7 +108,7 @@ import java.util.*;
 
     @Override
     public void deleteTask(int id) {
-        historyManager.remove(tasks.get(id));
+        historyManager.remove(id);
         tasks.remove(id);
     }
 
@@ -118,16 +118,9 @@ import java.util.*;
         if (epic == null) {
             return;
         }
-        historyManager.remove(epics.get(id));
+        historyManager.remove(id);
         for (Integer subtaskId : epic.getSubtasksIds()) {
             subtasks.remove(subtaskId);
-        }
-    }
-
-    @Override
-    public void deleteEpic(Epic epic) {
-        if(epics.containsValue(epic)){
-            epics.remove(epic.getId());
         }
     }
 
@@ -137,7 +130,7 @@ import java.util.*;
         if (subtask == null) {
             return;
         }
-        historyManager.remove(subtasks.get(id));
+        historyManager.remove(id);
         Epic epic = epics.get(subtask.getEpicID());
         epic.removeSubtaskIds(id);
         updateEpicStatus(epic.getId());
@@ -183,9 +176,9 @@ import java.util.*;
         if (epics.get(epicId).getSubtasksIds().isEmpty()) {
             epics.get(epicId).setStatus(Status.NEW);
         } else {
-            int countDone=0;
-                for(int subId: epics.get(epicId).getSubtasksIds()){
-                    if(subtasks.get(subId).getStatus().equals(Status.DONE)) {
+            int countDone = 0;
+                for (int subId: epics.get(epicId).getSubtasksIds()) {
+                    if (subtasks.get(subId).getStatus().equals(Status.DONE)) {
                         countDone++;
                     } else if (subtasks.get(subId).getStatus().equals(Status.IN_PROGRESS)) {
                         epics.get(epicId).setStatus(Status.IN_PROGRESS);
