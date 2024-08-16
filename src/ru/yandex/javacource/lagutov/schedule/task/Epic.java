@@ -1,10 +1,14 @@
 package ru.yandex.javacource.lagutov.schedule.task;
 
+import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
 
     private ArrayList<Integer> subtaskIds = new ArrayList<>();
+
+    private final TaskType type = TaskType.Epic;
 
     public Epic(String title, String note) {
         super(title, note);

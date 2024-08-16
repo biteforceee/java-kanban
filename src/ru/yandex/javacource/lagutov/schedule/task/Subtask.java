@@ -1,7 +1,11 @@
 package ru.yandex.javacource.lagutov.schedule.task;
 
+import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
+
 public class Subtask extends Task {
     private int epicID;
+
+    private final TaskType type = TaskType.Subtask;
 
     public Subtask(String tasktitle, String subnote) {
         super(tasktitle, subnote);

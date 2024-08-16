@@ -95,6 +95,14 @@ import java.util.*;
         return epic.getSubtasksIds();
     }
 
+    public ArrayList<Subtask> getSubtasksInEpic(Epic epic) { // или сделать так чтобы epic хранил не ID а Subtask
+        ArrayList<Subtask> list = new ArrayList<>();
+        for (int id : epic.getSubtasksIds()) {
+            list.add(subtasks.get(id));
+        }
+        return list;
+    }
+
     @Override
     public void deleteTasks() {
         tasks.clear();
