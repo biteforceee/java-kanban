@@ -21,8 +21,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
-        }
-        catch (ManagerSaveException e) {
+        } catch (ManagerSaveException e) {
             throw new ManagerSaveException("Ошибка получения файла: " + e.getMessage());
         }
     }
