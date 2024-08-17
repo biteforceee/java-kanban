@@ -16,7 +16,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public FileBackedTaskManager(String file) throws IOException {
         super();
-        try {//123
+        try{
             filePath = Paths.get(file);
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
