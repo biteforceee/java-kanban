@@ -12,8 +12,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         File file1 = File.createTempFile("test","csv");
-        File file2 = File.createTempFile("tes2","csv");
-        FileBackedTaskManager manager = new FileBackedTaskManager(file1.toString());
+        File file2 = File.createTempFile("test2","csv");
+        //File testFile = new File("D:\\YaProjects\\tmpfiles\\test.csv");
+        FileBackedTaskManager manager = new FileBackedTaskManager(file1);
         manager.addTask(new Task("task1", "for task1"));
         manager.addTask(new Task("task2", "for task2"));
 
@@ -25,7 +26,11 @@ public class Main {
         subtask.setNote("epic1");
         manager.updateSubtask(subtask);
 
-        FileBackedTaskManager manager2 = new FileBackedTaskManager(file2.toString());
-        manager2.loadFromFile(new File(file1.toString()));
+        FileBackedTaskManager manager2 = FileBackedTaskManager.loadFromFile(file1);
+        System.out.println(manager2.getEpics());
+
+        TaskManager taskManager = Managers.getDefault();
+        taskManager.addTask(new Task("task1", "for task1"));
+        taskManager.addTask(new Task("task2", "for task2"));
     }
 }

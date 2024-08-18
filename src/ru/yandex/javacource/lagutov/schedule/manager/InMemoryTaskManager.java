@@ -6,16 +6,16 @@ import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 import java.util.*;
 
-    public class InMemoryTaskManager implements TaskManager {
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+public class InMemoryTaskManager implements TaskManager {
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
-    private int generatorId = 0;
+    protected int generatorId = 0;
 
-    private final Map<Integer, Task> tasks = new HashMap<>();
+    protected final Map<Integer, Task> tasks = new HashMap<>();
 
-    private final Map<Integer, Epic> epics = new HashMap<>();
+    protected final Map<Integer, Epic> epics = new HashMap<>();
 
-    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected final Map<Integer, Subtask> subtasks = new HashMap<>();
 
     @Override
     public List<Task> getHistory() {
@@ -139,7 +139,7 @@ import java.util.*;
             return;
         }
         historyManager.remove(id);
-        Epic epic = epics.get(subtask.getEpicID());
+        Epic epic = epics.get(subtask.getEpicId());
         epic.removeSubtaskIds(id);
         updateEpicStatus(epic.getId());
     }
@@ -166,7 +166,7 @@ import java.util.*;
     @Override
     public void updateSubtask(Subtask subtask) {
         int id = subtask.getId();
-        int epicId = subtask.getEpicID();
+        int epicId = subtask.getEpicId();
         Subtask savedSubtask = subtasks.get(id);
         if (savedSubtask == null) {
             return;

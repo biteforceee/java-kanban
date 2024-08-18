@@ -2,6 +2,7 @@ package ru.yandex.javacource.lagutov.schedule.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.yandex.javacource.lagutov.schedule.manager.InMemoryTaskManager;
 import ru.yandex.javacource.lagutov.schedule.manager.Managers;
 import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class InMemoryTaskManagerTest {
-    TaskManager taskManager = Managers.getDefault();
+    TaskManager taskManager = new InMemoryTaskManager();
 
     @Test
     void addTask() {
@@ -34,7 +35,7 @@ class InMemoryTaskManagerTest {
         Epic epic = new Epic("","");
         taskManager.addEpic(epic);
         subtask.setEpicID(epic.getId());
-        taskManager.addSubtask(subtask, subtask.getEpicID());
+        taskManager.addSubtask(subtask, subtask.getEpicId());
         Assertions.assertEquals(1,taskManager.getSubtasks().size());
     }
 

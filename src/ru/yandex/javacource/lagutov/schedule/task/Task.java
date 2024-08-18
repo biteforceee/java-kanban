@@ -11,13 +11,20 @@ public class Task {
 
     private Status status;
 
-    private final TaskType type = TaskType.Task;
+    private final TaskType type = TaskType.TASK;
 
     public Task(String name, String note) {
         this.title = name;
         this.note = note;
         this.id = hashCode();
         this.status = Status.NEW;
+    }
+
+    public Task(int id, String title, String note, Status status) {
+        this.id = id;
+        this.title = title;
+        this.note = note;
+        this.status = status;
     }
 
     @Override
