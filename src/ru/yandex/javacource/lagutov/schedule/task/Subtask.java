@@ -1,10 +1,19 @@
 package ru.yandex.javacource.lagutov.schedule.task;
 
+import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
+
 public class Subtask extends Task {
-    private int epicID;
+    private int epicId;
+
+    private final TaskType type = TaskType.SUBTASK;
 
     public Subtask(String tasktitle, String subnote) {
         super(tasktitle, subnote);
+    }
+
+    public Subtask(int id, String title, String note, Status status, int epicId) {
+        super(id, title, note, status);
+        this.epicId = epicId;
     }
 
     public Subtask(String tasktitle, String subnote, Epic epic) {
@@ -12,12 +21,16 @@ public class Subtask extends Task {
         setEpicID(epic.getId());
     }
 
-    public void setEpicID(int epicID) {
-        this.epicID = epicID;
+    public TaskType getType() {
+        return type;
     }
 
-    public int getEpicID() {
-        return epicID;
+    public void setEpicID(int epicID) {
+        this.epicId = epicID;
+    }
+
+    public int getEpicId() {
+        return epicId;
     }
 
     @Override
@@ -25,7 +38,7 @@ public class Subtask extends Task {
         return "Subtask{" +
                 "id=" + getId() +
                 ", name='" + getTitle() + '\'' +
-                ", epicID='" + epicID + '\'' +
+                ", epicID='" + epicId + '\'' +
                 ", description='" + getNote() + '\'' +
                 ", status=" + getStatus() +
                 '}';

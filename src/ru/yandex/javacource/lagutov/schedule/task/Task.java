@@ -1,5 +1,7 @@
 package ru.yandex.javacource.lagutov.schedule.task;
 
+import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
+
 public class Task {
     private int id;
 
@@ -9,11 +11,20 @@ public class Task {
 
     private Status status;
 
+    private final TaskType type = TaskType.TASK;
+
     public Task(String name, String note) {
         this.title = name;
         this.note = note;
         this.id = hashCode();
         this.status = Status.NEW;
+    }
+
+    public Task(int id, String title, String note, Status status) {
+        this.id = id;
+        this.title = title;
+        this.note = note;
+        this.status = status;
     }
 
     @Override
@@ -55,6 +66,10 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     @Override
