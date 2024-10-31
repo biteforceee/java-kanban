@@ -41,4 +41,10 @@ class InMemoryHistoryManagerTest {
         list.add(task1);
         Assertions.assertEquals(list,historyManager.getHistory());
     }
+
+    @Test
+    void getNullHistory() {
+        List<Task> list = List.of();
+        Assertions.assertEquals(list,historyManager.getHistory());
+    }
 }

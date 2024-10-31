@@ -1,6 +1,7 @@
 package ru.yandex.javacource.lagutov.schedule.manager;
 
 
+import ru.yandex.javacource.lagutov.schedule.manager.exeptions.ManagerSaveException;
 import ru.yandex.javacource.lagutov.schedule.task.*;
 import java.io.*;
 import java.io.FileWriter;
@@ -8,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 
@@ -15,7 +17,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private final Path filePath;
 
-    private static final String fileHeader = "id;type;title;status;note;epic";
+    private static final String fileHeader = "id;type;title;status;note;epic;startTime;endTime;duration;";
+
+    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 
     public FileBackedTaskManager(String file) throws IOException {
         super();
@@ -121,20 +125,37 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             return null;
         }
         String[] param = value.split(";");
-        return switch (param[1]) {
-            case "EPIC" -> new Epic(Integer.parseInt(param[0]), param[2], param[4],
-                    Status.valueOf(param[3].toUpperCase()));
-            case "SUBTASK" -> new Subtask(Integer.parseInt(param[0]), param[2], param[4],
-                    Status.valueOf(param[3].toUpperCase()), Integer.parseInt(param[5]));
-            case "TASK" -> new Task(Integer.parseInt(param[0]), param[2], param[4],
-                    Status.valueOf(param[3].toUpperCase()));
-            default -> null;
-        };
+        if (param.length > 6) {//!param[8].isEmpty() && !param[6].isEmpty() &&
+            return switch (param[1]) {
+                case "EPIC" -> new Epic(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()), param[6], param[7]);
+                case "SUBTASK" -> new Subtask(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()), Integer.parseInt(param[5]), param[6], param[7]);
+                case "TASK" -> new Task(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()), param[6], param[7]);
+                default -> null;
+            };
+        } else {
+            return switch (param[1]) {
+                case "EPIC" -> new Epic(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()));
+                case "SUBTASK" -> new Subtask(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()), Integer.parseInt(param[5]));
+                case "TASK" -> new Task(Integer.parseInt(param[0]), param[2], param[4],
+                        Status.valueOf(param[3].toUpperCase()));
+                default -> null;
+            };
+        }
     }
 
     private String toString(Task task) {
-        String[] toJoin = { Integer.toString(task.getId()), task.getType().toString(), task.getTitle(),
-                task.getStatus().toString(), task.getNote(), "" };
+        String[] toJoin = {Integer.toString(task.getId()), task.getType().toString(), task.getTitle(),
+                task.getStatus().toString(), task.getNote(), ""};
+        if (task.getStartTime() != null && task.getEndTime() != null) {
+            toJoin = new String[]{Integer.toString(task.getId()), task.getType().toString(), task.getTitle(),
+                    task.getStatus().toString(), task.getNote(), "", task.getStartTime().format(dateFormat),
+                    task.getEndTime().format(dateFormat), Long.toString(task.getDuration())};
+        }
         if (task instanceof Subtask) {
             toJoin[5] = (Integer.toString(((Subtask) task).getEpicId()));
         }
