@@ -3,7 +3,6 @@ package ru.yandex.javacource.lagutov.schedule.task;
 import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Epic extends Task {
