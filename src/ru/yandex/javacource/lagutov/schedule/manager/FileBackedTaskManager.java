@@ -125,7 +125,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             return null;
         }
         String[] param = value.split(";");
-        if (param.length > 6) {//!param[8].isEmpty() && !param[6].isEmpty() &&
+        if (param.length > 6) { //!param[8].isEmpty() && !param[6].isEmpty() &&
             return switch (param[1]) {
                 case "EPIC" -> new Epic(Integer.parseInt(param[0]), param[2], param[4],
                         Status.valueOf(param[3].toUpperCase()), param[6], param[7]);
