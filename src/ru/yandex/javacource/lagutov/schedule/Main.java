@@ -7,10 +7,13 @@ import ru.yandex.javacource.lagutov.schedule.manager.*;
 
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 //        File file1 = File.createTempFile("test","csv");
 //        //File file2 = File.createTempFile("test2","csv");
 //        //File testFile = new File("D:\\YaProjects\\tmpfiles\\test.csv");
@@ -49,7 +52,8 @@ public class Main {
         subtask.setStatus(Status.DONE);
         subtask.setNote("epic1");
         subtask.setStartTime("10:00 01.01.7779");
-        subtask.setEndTime("00:00 01.01.7780");
+        subtask.setDuration(Duration.between(subtask.getStartTime(),
+                LocalDateTime.parse("00:00 01.01.7780", dateFormat)));
         taskManager.updateSubtask(subtask);
         System.out.println(taskManager.getEpics());
         System.out.println(taskManager.getPrioritisedTasks());

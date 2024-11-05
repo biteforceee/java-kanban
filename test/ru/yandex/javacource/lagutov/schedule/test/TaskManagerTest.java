@@ -5,6 +5,10 @@ import ru.yandex.javacource.lagutov.schedule.manager.TaskManager;
 import ru.yandex.javacource.lagutov.schedule.task.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public abstract class TaskManagerTest <T extends TaskManager> {
@@ -39,7 +43,7 @@ public abstract class TaskManagerTest <T extends TaskManager> {
         Assertions.assertThrows(NullPointerException.class, () -> manager.addSubtask(null, -1));
         Subtask subtask = new Subtask("","");
         subtask.setStartTime("01:01 01.01.2024");
-        subtask.setEndTime("01:02 01.01.2024");
+        subtask.setDuration(Duration.of(1, ChronoUnit.MINUTES));
         Epic epic = new Epic("","");
         manager.addEpic(epic);
         subtask.setEpicID(epic.getId());
@@ -178,13 +182,15 @@ public abstract class TaskManagerTest <T extends TaskManager> {
                 return task1.getStartTime().compareTo(task2.getStartTime());
             }
         }
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         Set<Task> expectedSet = new TreeSet<>(new TaskDateComparator());
         manager.addTask(task1);
         task1.setNote("2");
         task1.setTitle("2");
         task1.setStatus(Status.IN_PROGRESS);
         task1.setStartTime("12:00 01.01.2024");
-        task1.setEndTime("14:30 12.05.2024");
+        task1.setDuration(Duration.between(task1.getStartTime(),
+                LocalDateTime.parse("14:30 12.05.2024", dateFormat)));
         manager.updateTask(task1);
         expectedSet.add(task1);
         Assertions.assertEquals(task1, manager.getTask(task1.getId()));
@@ -199,6 +205,7 @@ public abstract class TaskManagerTest <T extends TaskManager> {
                 return task1.getStartTime().compareTo(task2.getStartTime());
             }
         }
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         Epic epic = new Epic("title","note");
         manager.addEpic(epic);
         Set <Task> expectedSet = new TreeSet<>(new TaskDateComparator());
@@ -212,7 +219,8 @@ public abstract class TaskManagerTest <T extends TaskManager> {
         task.setTitle("2");
         task.setStatus(Status.IN_PROGRESS);
         task.setStartTime("12:00 01.01.2024");
-        task.setEndTime("14:30 12.05.2024");
+        task.setDuration(Duration.between(task1.getStartTime(),
+                LocalDateTime.parse("14:30 12.05.2024", dateFormat)));
         manager.updateSubtask(task);
         expectedSet.add(task);
         Subtask task2 = new Subtask(2, "1", "1", Status.NEW, epic.getId()
@@ -239,6 +247,7 @@ public abstract class TaskManagerTest <T extends TaskManager> {
                 return task1.getStartTime().compareTo(task2.getStartTime());
             }
         }
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         Epic epic = new Epic("title","note");
         manager.addEpic(epic);
         Set <Task> expectedSet = new TreeSet<>(new TaskDateComparator());
@@ -249,7 +258,8 @@ public abstract class TaskManagerTest <T extends TaskManager> {
         task.setTitle("2");
         task.setStatus(Status.IN_PROGRESS);
         task.setStartTime("12:00 01.01.2024");
-        task.setEndTime("14:30 12.05.2024");
+        task.setDuration(Duration.between(task1.getStartTime(),
+                LocalDateTime.parse("14:30 12.05.2024", dateFormat)));
         manager.updateSubtask(task);
         expectedSet.add(task);
         Assertions.assertEquals(task, manager.getSubtask(task.getId()));

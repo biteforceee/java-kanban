@@ -1,4 +1,5 @@
 package ru.yandex.javacource.lagutov.schedule.manager;
+import ru.yandex.javacource.lagutov.schedule.manager.exeptions.TaskValidationException;
 import ru.yandex.javacource.lagutov.schedule.task.Epic;
 import ru.yandex.javacource.lagutov.schedule.task.Status;
 import ru.yandex.javacource.lagutov.schedule.task.Subtask;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class InMemoryTaskManager implements TaskManager {
     protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
-    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 
     static class TaskDateComparator implements Comparator<Task> {
         @Override
@@ -36,7 +37,7 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-    public boolean checkTime(Task task) {
+    private boolean checkTime(Task task) {
         if (!prioritisedTasks.isEmpty()) {
             for (Task t : prioritisedTasks) {
                 if (!(task.getEndTime().isBefore(t.getStartTime()) || task.getStartTime().isAfter(t.getEndTime()))
@@ -48,10 +49,10 @@ public class InMemoryTaskManager implements TaskManager {
         return true;
     }
 
-    public void validateTime(Task task) throws IllegalStateException {
+    public void validateTime(Task task) {
         boolean check = checkTime(task);
         if (!check) {
-            throw new IllegalStateException("задача имеет пересечение");
+            throw new TaskValidationException("задача имеет пересечение");
         }
     }
 
@@ -85,13 +86,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int addTask(Task task) {
-        int id = ++generatorId;
-        task.setId(id);
-        tasks.put(id, task);
         if (task.getStartTime() != null) {
             validateTime(task);
             prioritisedTasks.add(task);
         }
+        int id = ++generatorId;
+        task.setId(id);
+        tasks.put(id, task);
         return id;
     }
 
@@ -269,13 +270,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubtask(Subtask subtask) {
-        if (subtask.getStartTime() != null) {
-            validateTime(subtask);
-            Subtask oldSubtask = subtasks.get(subtask.getId());
-            prioritisedTasks.remove(oldSubtask);
-            prioritisedTasks.add(subtask);
-            calcEpicTime(epics.get(subtask.getEpicId()));
-        }
         int id = subtask.getId();
         int epicId = subtask.getEpicId();
         Subtask savedSubtask = subtasks.get(id);
@@ -286,7 +280,13 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic == null) {
             return;
         }
+        if (subtask.getStartTime() != null) {
+            validateTime(subtask);
+        }
         subtasks.put(id, subtask);
+        prioritisedTasks.remove(savedSubtask);
+        prioritisedTasks.add(subtask);
+        calcEpicTime(epics.get(subtask.getEpicId()));
         updateEpicStatus(epicId);
     }
 

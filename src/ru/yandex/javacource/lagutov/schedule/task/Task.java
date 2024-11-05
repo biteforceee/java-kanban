@@ -5,6 +5,7 @@ import ru.yandex.javacource.lagutov.schedule.manager.TaskType;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Task {
     private int id;
@@ -17,11 +18,9 @@ public class Task {
 
     private final TaskType type = TaskType.TASK;
 
-    private Duration duration = null;
-
     private LocalDateTime startTime = null;
 
-    private LocalDateTime endTime = null;
+    private Duration duration = null;
 
     public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 
@@ -45,8 +44,7 @@ public class Task {
         this.note = note;
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
-        this.endTime = LocalDateTime.parse(endTime, dateFormat);
-        this.duration = Duration.between(this.startTime, this.endTime);
+        this.duration = Duration.between(this.startTime, LocalDateTime.parse(endTime, dateFormat));
     }
 
     public Task(int id, String title, String note, Status status, String startTime, Duration duration) {
@@ -56,7 +54,6 @@ public class Task {
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
         this.duration = duration;
-        this.endTime = this.startTime.plus(duration);
     }
 
     public Task(String title, String note, Status status, String startTime, String endTime) {
@@ -65,8 +62,7 @@ public class Task {
         this.note = note;
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
-        this.endTime = LocalDateTime.parse(endTime, dateFormat);
-        this.duration = Duration.between(this.startTime, this.endTime);
+        this.duration = Duration.between(this.startTime, LocalDateTime.parse(endTime, dateFormat));
     }
 
     @Override
@@ -136,21 +132,18 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        return endTime;
+        return startTime.plusMinutes(duration.toMinutes());
     }
 
     public void setStartTime(String startTime) {
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
-        if (endTime != null) {
-            this.duration = Duration.between(this.startTime, endTime);
+        if (duration != null) {
+            this.duration = Duration.between(this.startTime, getEndTime());
         }
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = LocalDateTime.parse(endTime, dateFormat);
-        if (startTime != null) {
-            this.duration = Duration.between(startTime, this.endTime);
-        }
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
     @Override
@@ -163,7 +156,9 @@ public class Task {
                 ", type=" + type +
                 ", duration=" + getDuration() +
                 ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", endTime=" + getEndTime() +
                 '}';
     }
+
+
 }

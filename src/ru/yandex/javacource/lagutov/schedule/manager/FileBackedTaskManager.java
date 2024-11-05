@@ -9,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 
@@ -128,11 +130,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         if (param.length > 6) { //!param[8].isEmpty() && !param[6].isEmpty() &&
             return switch (param[1]) {
                 case "EPIC" -> new Epic(Integer.parseInt(param[0]), param[2], param[4],
-                        Status.valueOf(param[3].toUpperCase()), param[6], param[7]);
+                        Status.valueOf(param[3].toUpperCase()), param[6], Duration.of(Integer.parseInt(param[8]), ChronoUnit.MINUTES));
                 case "SUBTASK" -> new Subtask(Integer.parseInt(param[0]), param[2], param[4],
-                        Status.valueOf(param[3].toUpperCase()), Integer.parseInt(param[5]), param[6], param[7]);
+                        Status.valueOf(param[3].toUpperCase()), Integer.parseInt(param[5]), param[6], Duration.of(Integer.parseInt(param[8]), ChronoUnit.MINUTES));
                 case "TASK" -> new Task(Integer.parseInt(param[0]), param[2], param[4],
-                        Status.valueOf(param[3].toUpperCase()), param[6], param[7]);
+                        Status.valueOf(param[3].toUpperCase()), param[6],Duration.of(Integer.parseInt(param[8]), ChronoUnit.MINUTES));
                 default -> null;
             };
         } else {
