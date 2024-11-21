@@ -1,4 +1,4 @@
-package ru.yandex.javacource.lagutov.schedule.manager;
+package ru.yandex.javacource.lagutov.schedule.manager.exeptions;
 
 
 public class ManagerSaveException extends RuntimeException {

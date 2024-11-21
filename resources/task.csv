@@ -1,3 +1,6 @@
-id;type;title;status;note;epic
-1;TASK;task1;NEW;for task1;
+id;type;title;status;note;epic;startTime;endTime;duration;
+1;TASK;task1;IN_PROGRESS;task;;10:00 01.01.7777;00:00 01.01.7778;525000
 2;TASK;task2;NEW;for task2;
+3;EPIC;epic1;DONE;for epic1;;10:00 01.01.7779;00:00 01.01.7780;525000
+5;SUBTASK;subtask1;DONE;epic1;3;10:00 01.01.7779;00:00 01.01.7780;525000
+4;EPIC;epic2;NEW;for epic2;

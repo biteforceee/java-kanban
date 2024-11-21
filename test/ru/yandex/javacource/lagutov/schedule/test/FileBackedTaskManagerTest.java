@@ -3,16 +3,17 @@ package ru.yandex.javacource.lagutov.schedule.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.lagutov.schedule.manager.InMemoryTaskManager;
-import ru.yandex.javacource.lagutov.schedule.task.Status;
-import ru.yandex.javacource.lagutov.schedule.task.Task;
+import ru.yandex.javacource.lagutov.schedule.manager.FileBackedTaskManager;
+import java.io.File;
 
-import java.util.*;
+import java.io.IOException;
 
-class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
+public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
+
     @BeforeEach
-    void setUp() {
-        super.manager = new InMemoryTaskManager();
+    void setUp() throws IOException {
+        File file1 = File.createTempFile("test", "csv");
+        super.manager = new FileBackedTaskManager(file1.toString());
     }
 
     @Test
@@ -91,30 +92,6 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     }
 
     @Test
-    void getPrioritisedTasks() {
-        class TaskDateComparator implements Comparator<Task> {
-            @Override
-            public int compare(Task task1, Task task2) {
-                return task1.getStartTime().compareTo(task2.getStartTime());
-            }
-        }
-        Set <Task> expectedList = new TreeSet<>(new TaskDateComparator());
-        Task task1 = new Task("1", "1", Status.NEW, "12:00 01.01.1111","13:00 01.01.1111");
-        Task task2 = new Task("2", "2", Status.NEW, "14:00 01.01.7777","15:00 01.01.7777");
-        Task task3 = new Task("3", "3", Status.NEW, "10:00 02.01.7778","00:00 03.01.7778");
-        Task task4 = new Task("4", "4", Status.NEW, "10:00 01.02.7777","01:00 01.05.7777");
-        manager.addTask(task1);
-        manager.addTask(task2);
-        manager.addTask(task3);
-        manager.addTask(task4);
-        expectedList.add(task1);
-        expectedList.add(task2);
-        expectedList.add(task3);
-        expectedList.add(task4);
-        Assertions.assertEquals(expectedList, manager.getPrioritisedTasks());
-    }
-
-    @Test
     void updateTask() {
         super.updateTask();
     }
@@ -127,5 +104,20 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     @Test
     void updateEpic() {
         super.updateEpic();
+    }
+
+    @Test
+    void loadFromFile() throws IOException {
+        int taskExpected = 2;
+        int epicExpected = 2;
+        int subtaskExpected = 1;
+
+        String fileToLoad = "resources/task.csv";
+
+        FileBackedTaskManager manager = FileBackedTaskManager.loadFromFile(new File(fileToLoad));
+
+        Assertions.assertEquals(taskExpected, manager.getTasks().size());
+        Assertions.assertEquals(epicExpected, manager.getEpics().size());
+        Assertions.assertEquals(subtaskExpected, manager.getSubtasks().size());
     }
 }

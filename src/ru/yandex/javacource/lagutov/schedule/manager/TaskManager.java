@@ -5,6 +5,7 @@ import ru.yandex.javacource.lagutov.schedule.task.Subtask;
 import ru.yandex.javacource.lagutov.schedule.task.Task;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
     List<Task> getHistory();
@@ -46,4 +47,6 @@ public interface TaskManager {
     void updateSubtask(Subtask subtask);
 
     void updateEpicStatus(int epicId);
+
+    Set<Task> getPrioritisedTasks();
 }
