@@ -63,7 +63,7 @@ public class TaskHandler implements HttpHandler {
             BaseHttpHandler.sendNotFound(exchange, "Not found");
             return;
         }
-        if (manager.getTask(id.get()) != null){
+        if (manager.getTask(id.get()) != null) {
             String responseString = gson.toJson(manager.getTask(id.get()));
             BaseHttpHandler.writeResponse(exchange, responseString, 200);
         }
@@ -79,13 +79,13 @@ public class TaskHandler implements HttpHandler {
     private void addTask(HttpExchange exchange) throws IOException {
         String body = readText(exchange);
         JsonElement jsonElement = JsonParser.parseString(body);
-        if(!jsonElement.isJsonObject()) {
+        if (!jsonElement.isJsonObject()) {
             BaseHttpHandler.writeResponse(exchange, "Not Acceptable", 406);
             return;
         }
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         Task task = gson.fromJson(jsonObject, Task.class);
-        if (task == null){
+        if (task == null) {
             BaseHttpHandler.writeResponse(exchange, "Not Acceptable", 406);
             return;
         }
@@ -101,13 +101,13 @@ public class TaskHandler implements HttpHandler {
     private void updateTask(HttpExchange exchange) throws IOException {
         String body = readText(exchange);
         JsonElement jsonElement = JsonParser.parseString(body);
-        if(!jsonElement.isJsonObject()) {
+        if (!jsonElement.isJsonObject()) {
             BaseHttpHandler.writeResponse(exchange, "Not Acceptable", 406);
             return;
         }
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         Task task = gson.fromJson(jsonObject, Task.class);
-        if (task == null){
+        if (task == null) {
             BaseHttpHandler.writeResponse(exchange, "Not Acceptable", 406);
             return;
         }
