@@ -76,11 +76,11 @@ public class Main {
         manager.addTask(task2);
         Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
         manager.addEpic(epic1);
-        Subtask subtask11 = new Subtask(2, "1", "1", Status.NEW, epic1.getId()
-                ,"12:00 01.01.1111","13:00 01.01.1111");
+        Subtask subtask11 = new Subtask(2, "1", "1", Status.NEW, epic1.getId(),
+                "12:00 01.01.1111","13:00 01.01.1111");
         manager.addSubtask(subtask11, epic1.getId());
-        Subtask subtask12 = new Subtask(2, "1", "1", Status.NEW, epic1.getId()
-                ,"12:00 01.01.2222","13:00 01.01.2222");
+        Subtask subtask12 = new Subtask(2, "1", "1", Status.NEW, epic1.getId(),
+                "12:00 01.01.2222","13:00 01.01.2222");
         manager.addSubtask(subtask12, epic1.getId());
         Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
         manager.addEpic(epic2);
