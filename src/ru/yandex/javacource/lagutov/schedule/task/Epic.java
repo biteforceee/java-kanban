@@ -10,29 +10,31 @@ public class Epic extends Task {
 
     private ArrayList<Integer> subtaskIds = new ArrayList<>();
 
-    private final TaskType type = TaskType.EPIC;
-
     private LocalDateTime endTime;
 
     public Epic(String title, String note) {
         super(title, note);
+        type = TaskType.EPIC;
     }
 
     public Epic(int id, String title, String note, Status status) {
         super(id, title, note, status);
+        type = TaskType.EPIC;
     }
 
     public Epic(int id, String title, String note, Status status, String startTime, Duration duration) {
         super(id,title,note,status,startTime,duration);
         this.endTime = super.getEndTime();
+        type = TaskType.EPIC;
     }
 
     public Epic(int id, String title, String note, Status status, String startTime, String endTime) {
         super(id,title,note,status,startTime,endTime);
+        type = TaskType.EPIC;
     }
 
     public TaskType getType() {
-        return type;
+        return TaskType.EPIC;
     }
 
     public void addSubtaskId(int id) {
@@ -74,7 +76,7 @@ public class Epic extends Task {
                 ", title='" + getTitle() + '\'' +
                 ", note='" + getNote() + '\'' +
                 ", status=" + getStatus() +
-                ", type=" + type +
+                ", type=" + getType() +
                 ", duration=" + getDuration() +
                 ", startTime=" + getStartTime() +
                 ", endTime=" + getEndTime() +
