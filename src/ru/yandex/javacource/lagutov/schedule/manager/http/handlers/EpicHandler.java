@@ -35,7 +35,7 @@ public class EpicHandler implements HttpHandler {
             case "GET":
                 if (splitPath.length == 3) {
                     getEpic(exchange);
-                } else if (splitPath.length == 4){
+                } else if (splitPath.length == 4) {
                     getEpicSubtasks(exchange);
                 } else {
                     getEpics(exchange);
@@ -70,7 +70,7 @@ public class EpicHandler implements HttpHandler {
             return;
         }
         if (manager.getEpic(id.get()) == null) {
-            BaseHttpHandler.writeResponse(exchange, "Несуществует epic с id="+id.get(), 404);
+            BaseHttpHandler.writeResponse(exchange, "Несуществует epic с id=" + id.get(), 404);
             return;
         }
         String responseString = gson.toJson(manager.getEpicSubtasks(manager.getEpic(id.get())));
