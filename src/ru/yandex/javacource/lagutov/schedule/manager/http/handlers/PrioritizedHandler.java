@@ -37,7 +37,7 @@ public class PrioritizedHandler implements HttpHandler {
                 getPrioritisedTasks(exchange);
                 return;
             default:
-                BaseHttpHandler.writeResponse(exchange, "Not Found", 404);
+                BaseHttpHandler.sendNotFound(exchange, "Not found");
         }
     }
 

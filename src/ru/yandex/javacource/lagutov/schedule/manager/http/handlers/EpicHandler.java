@@ -48,7 +48,7 @@ public class EpicHandler implements HttpHandler {
                 deleteEpic(exchange);
                 return;
             default:
-                BaseHttpHandler.writeResponse(exchange, "Not Found", 404);
+                BaseHttpHandler.sendNotFound(exchange, "Not found");
         }
     }
 

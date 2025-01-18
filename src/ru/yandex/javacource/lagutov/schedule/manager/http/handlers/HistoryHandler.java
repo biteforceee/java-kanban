@@ -39,7 +39,7 @@ public class HistoryHandler implements HttpHandler {
                 getHistory(exchange);
                 return;
             default:
-                BaseHttpHandler.writeResponse(exchange, "Not Found", 404);
+                BaseHttpHandler.sendNotFound(exchange, "Not found");
         }
     }
 

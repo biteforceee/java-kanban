@@ -52,7 +52,7 @@ public class SubtaskHandler implements HttpHandler {
                 deleteSubtask(exchange);
                 return;
             default:
-                BaseHttpHandler.writeResponse(exchange, "Not Found", 404);
+                BaseHttpHandler.sendNotFound(exchange, "Not found");
         }
     }
 
