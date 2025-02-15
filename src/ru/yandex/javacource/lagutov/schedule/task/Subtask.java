@@ -7,39 +7,45 @@ import java.time.Duration;
 public class Subtask extends Task {
     private int epicId;
 
-    private final TaskType type = TaskType.SUBTASK;
+    //private final TaskType stype = TaskType.SUBTASK;
 
     public Subtask(String tasktitle, String subnote) {
         super(tasktitle, subnote);
+        type = TaskType.SUBTASK;
     }
 
     public Subtask(int id, String title, String note, Status status, int epicId) {
         super(id, title, note, status);
         this.epicId = epicId;
+        type = TaskType.SUBTASK;
     }
 
     public Subtask(String tasktitle, String subnote, Epic epic) {
         super(tasktitle, subnote);
         setEpicID(epic.getId());
+        type = TaskType.SUBTASK;
     }
 
     public Subtask(String tasktitle, String subnote, int epic) {
         super(tasktitle, subnote);
         setEpicID(epic);
+        type = TaskType.SUBTASK;
     }
 
     public Subtask(int id, String title, String note, Status status, int epicId, String startTime, Duration duration) {
         super(id,title,note,status,startTime,duration);
         setEpicID(epicId);
+        type = TaskType.SUBTASK;
     }
 
     public Subtask(int id, String title, String note, Status status, int epicId, String startTime, String endtime) {
         super(id,title,note,status,startTime,endtime);
         setEpicID(epicId);
+        type = TaskType.SUBTASK;
     }
 
     public TaskType getType() {
-        return type;
+        return TaskType.SUBTASK;
     }
 
     public void setEpicID(int epicID) {
@@ -58,7 +64,7 @@ public class Subtask extends Task {
                 ", epicID='" + epicId + '\'' +
                 ", note='" + getNote() + '\'' +
                 ", status=" + getStatus() +
-                ", type=" + type +
+                ", type=" + getType() +
                 ", duration=" + getDuration() +
                 ", startTime=" + getStartTime() +
                 ", endTime=" + getEndTime() +

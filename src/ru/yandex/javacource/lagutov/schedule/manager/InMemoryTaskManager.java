@@ -80,8 +80,8 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
 
-        epic.setStartTime(minSubtaskStartTime.format(dateFormat));
-        epic.setEndTime(maxSubtaskEndTime.format(dateFormat));
+        epic.setStartTime(minSubtaskStartTime.format(dateFormat));//
+        epic.setEndTime(maxSubtaskEndTime.format(dateFormat));//
     }
 
     @Override

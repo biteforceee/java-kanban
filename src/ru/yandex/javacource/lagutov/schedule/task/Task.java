@@ -15,7 +15,7 @@ public class Task {
 
     private Status status;
 
-    private final TaskType type = TaskType.TASK;
+    protected TaskType type;
 
     private LocalDateTime startTime = null;
 
@@ -28,6 +28,7 @@ public class Task {
         this.note = note;
         this.id = hashCode();
         this.status = Status.NEW;
+        type = TaskType.TASK;
     }
 
     public Task(int id, String title, String note, Status status) {
@@ -35,6 +36,7 @@ public class Task {
         this.title = title;
         this.note = note;
         this.status = status;
+        type = TaskType.TASK;
     }
 
     public Task(int id, String title, String note, Status status, String startTime, String endTime) {
@@ -44,6 +46,7 @@ public class Task {
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
         this.duration = Duration.between(this.startTime, LocalDateTime.parse(endTime, dateFormat));
+        type = TaskType.TASK;
     }
 
     public Task(int id, String title, String note, Status status, String startTime, Duration duration) {
@@ -53,6 +56,7 @@ public class Task {
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
         this.duration = duration;
+        type = TaskType.TASK;
     }
 
     public Task(String title, String note, Status status, String startTime, String endTime) {
@@ -62,6 +66,7 @@ public class Task {
         this.status = status;
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
         this.duration = Duration.between(this.startTime, LocalDateTime.parse(endTime, dateFormat));
+        type = TaskType.TASK;
     }
 
     @Override
@@ -136,7 +141,7 @@ public class Task {
 
     public void setStartTime(String startTime) {
         this.startTime = LocalDateTime.parse(startTime, dateFormat);
-        if (duration != null) {
+        if (duration != null && getEndTime() != null) {
             this.duration = Duration.between(this.startTime, getEndTime());
         }
     }
@@ -152,7 +157,7 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +
                 ", status=" + status +
-                ", type=" + type +
+                ", type=" + getType() +
                 ", duration=" + getDuration() +
                 ", startTime=" + startTime +
                 ", endTime=" + getEndTime() +
